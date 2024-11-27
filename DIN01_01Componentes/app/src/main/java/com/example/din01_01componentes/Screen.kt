@@ -71,7 +71,8 @@ fun MainScreen(modifier: Modifier = Modifier) {
                     } else {
                         textBoxContent.value = ""
                     }
-                }
+                },
+                enabled = false
             )
         }
 

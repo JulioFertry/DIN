@@ -55,7 +55,7 @@ fun TextBox(text: String) {
 
 
 @Composable
-fun NuclearButton(onClick: () -> Unit) {
+fun NuclearButton(onClick: () -> Unit, enabled: Boolean) {
     Button(
         onClick = onClick,
         shape = CircleShape,
@@ -67,7 +67,7 @@ fun NuclearButton(onClick: () -> Unit) {
             containerColor = colorResource(id = R.color.red),
             contentColor = colorResource(id = R.color.white)
         ),
-        modifier = Modifier.size(100.dp)
+        modifier = Modifier.size(100.dp),
     ) {
         Text(
             text = "SHOW",
