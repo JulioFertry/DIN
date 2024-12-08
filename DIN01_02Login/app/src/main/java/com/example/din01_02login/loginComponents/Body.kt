@@ -2,6 +2,7 @@ package com.example.din01_02login.loginComponents
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,11 +14,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -26,20 +30,25 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
 import com.example.din01_02login.R
+import com.example.din01_02login.logic.LoginViewModel
 
 
 @Composable
-fun Body(modifier: Modifier) {
-    var email by rememberSaveable { mutableStateOf("") }
-    var password by rememberSaveable { mutableStateOf("") }
-    var isLoginEnabled by rememberSaveable { mutableStateOf(true) }
+fun Body(modifier: Modifier, loginViewModel: LoginViewModel) {
+    var email = loginViewModel.email
+    var password = loginViewModel.password
+    val isLoginEnabled = email.value.isNotEmpty() && password.value.isNotEmpty()
+
 
     Column(
         modifier = Modifier
@@ -51,17 +60,19 @@ fun Body(modifier: Modifier) {
         Logo()
         Spacer(modifier = Modifier.size(30.dp))
 
-        Email(email) {
-            email = it
+        Email(email.value) {
+            email.value = it
         }
         Spacer(modifier = Modifier.size(15.dp))
 
-        Password(password) {
-            password = it
+        Password(password.value) {
+            password.value = it
         }
         Spacer(modifier = Modifier.size(30.dp))
 
-        LoginButton(isLoginEnabled)
+        LoginButton(isLoginEnabled) {
+            loginViewModel.onLoginClick()
+        }
         Spacer(modifier = Modifier.size(15.dp))
 
         LoginDivider()
@@ -101,31 +112,63 @@ fun Logo() {
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Email(email: String, onTextChanged: (String) -> Unit) {
     TextField(
         value = email,
-        onValueChange = {onTextChanged(it)}
+        onValueChange = {onTextChanged(it)},
+        placeholder = { Text(
+            text = "Email",
+            color = colorResource(id = R.color.elementsColor)
+        ) },
+        maxLines = 1,
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+        colors = TextFieldDefaults.textFieldColors(
+            containerColor = colorResource(id = R.color.white),
+            focusedTextColor = colorResource(id = R.color.elementsColor),
+            unfocusedTextColor = colorResource(id = R.color.elementsColor),
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent
+        ),
+        modifier = Modifier.border(1.dp, color = colorResource(id = R.color.elementsColor))
     )
 
 }
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Password(password: String, onTextChanged: (String) -> Unit) {
     TextField(
         value = password,
-        onValueChange = {onTextChanged(it)}
+        onValueChange = {onTextChanged(it)},
+        placeholder = { Text(
+            text = "Password",
+            color = colorResource(id = R.color.elementsColor)
+        ) },
+        maxLines = 1,
+        singleLine = true,
+        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+        colors = TextFieldDefaults.textFieldColors(
+            containerColor = colorResource(id = R.color.white),
+            focusedTextColor = colorResource(id = R.color.elementsColor),
+            unfocusedTextColor = colorResource(id = R.color.elementsColor),
+            focusedIndicatorColor = Color.Transparent,
+            unfocusedIndicatorColor = Color.Transparent
+        ),
+        modifier = Modifier.border(1.dp, color = colorResource(id = R.color.elementsColor))
     )
 
 }
 
 
 @Composable
-fun LoginButton(loginEnabled: Boolean) {
+fun LoginButton(loginEnabled: Boolean, onLoginClick: () -> Unit) {
     Button(
         shape = RoundedCornerShape(5.dp),
-        onClick = {},
+        onClick = { onLoginClick() },
         enabled = loginEnabled,
         colors = ButtonDefaults.buttonColors(
             containerColor = colorResource(id = R.color.log_InButtonColor),

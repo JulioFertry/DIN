@@ -12,12 +12,17 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.din01_02login.logic.LoginViewModel
 import com.example.din01_02login.loginComponents.Body
 import com.example.din01_02login.loginComponents.Footer
 import com.example.din01_02login.loginComponents.Header
@@ -25,6 +30,8 @@ import com.example.din01_02login.loginComponents.Header
 
 @Composable
 fun LoginScreen() {
+    val loginViewModel = LoginViewModel()
+
     Box(Modifier.fillMaxSize()) {
 
         Column(
@@ -44,7 +51,10 @@ fun LoginScreen() {
                     .background(color = colorResource(id = R.color.backgroundColor))
                     .fillMaxWidth(), contentAlignment = Alignment.Center
             ) {
-                Body(Modifier)
+                Body(
+                    Modifier,
+                    loginViewModel
+                )
             }
 
             Box(
