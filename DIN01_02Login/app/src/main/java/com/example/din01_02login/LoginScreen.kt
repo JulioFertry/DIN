@@ -24,7 +24,7 @@ import com.example.din01_02login.loginComponents.Header
 
 @Composable
 fun LoginScreen() {
-    Box(Modifier.fillMaxSize()) {
+    Box(Modifier.fillMaxWidth()) {
 
         Column {
             Box(
@@ -37,7 +37,6 @@ fun LoginScreen() {
 
             Box(
                 Modifier
-                    .weight(1f)
                     .background(color = colorResource(id = R.color.backgroundColor))
                     .fillMaxSize(), contentAlignment = Alignment.Center
             ) {

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">DIN01_02Login</string>
+    <string name="login_button">LOG IN NOW</string>
 </resources>
