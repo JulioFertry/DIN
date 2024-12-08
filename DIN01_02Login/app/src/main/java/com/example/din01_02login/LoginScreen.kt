@@ -19,28 +19,42 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.din01_02login.loginComponents.Body
+import com.example.din01_02login.loginComponents.Footer
 import com.example.din01_02login.loginComponents.Header
 
 
 @Composable
 fun LoginScreen() {
-    Box(Modifier.fillMaxWidth()) {
+    Box(Modifier.fillMaxSize()) {
 
-        Column {
+        Column(
+            Modifier.fillMaxSize()
+        ) {
             Box(
                 Modifier
                     .background(color = colorResource(id = R.color.backgroundColor))
                     .fillMaxWidth(), contentAlignment = Alignment.TopEnd
             ) {
-                Header(Modifier.padding(10.dp))
+                Header(Modifier)
             }
 
             Box(
                 Modifier
+                    .weight(11f)
                     .background(color = colorResource(id = R.color.backgroundColor))
-                    .fillMaxSize(), contentAlignment = Alignment.Center
+                    .fillMaxWidth(), contentAlignment = Alignment.Center
             ) {
-                Body(Modifier.padding(10.dp))
+                Body(Modifier)
+            }
+
+            Box(
+                Modifier
+                    .background(color = colorResource(id = R.color.footerColor))
+                    .fillMaxWidth()
+                    .weight(1f),
+                contentAlignment = Alignment.BottomCenter
+            ) {
+                Footer(Modifier)
             }
         }
 

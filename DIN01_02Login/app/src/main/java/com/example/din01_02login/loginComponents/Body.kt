@@ -44,7 +44,7 @@ fun Body(modifier: Modifier) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(10.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -54,7 +54,7 @@ fun Body(modifier: Modifier) {
         Email(email) {
             email = it
         }
-        Spacer(modifier = Modifier.size(16.dp))
+        Spacer(modifier = Modifier.size(15.dp))
 
         Password(password) {
             password = it
@@ -62,10 +62,10 @@ fun Body(modifier: Modifier) {
         Spacer(modifier = Modifier.size(30.dp))
 
         LoginButton(isLoginEnabled)
-        Spacer(modifier = Modifier.size(16.dp))
+        Spacer(modifier = Modifier.size(15.dp))
 
         LoginDivider()
-        Spacer(modifier = Modifier.size(16.dp))
+        Spacer(modifier = Modifier.size(15.dp))
 
         SocialLogin()
 
